@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: news-summarization-backend
+    env: python
+    rootDir: backend
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      python -m nltk.downloader punkt stopwords
+    startCommand: gunicorn app:app
