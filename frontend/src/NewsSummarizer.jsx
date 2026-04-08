@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Newspaper, Link, FileText, Loader2 } from "lucide-react";
 import bgImage from "./assets/bg.jpg";
 
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL || "http://127.0.0.1:5000"
+).replace(/\/$/, "");
+
 export default function NewsSummarizer() {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState("text");
@@ -20,7 +24,7 @@ export default function NewsSummarizer() {
     setSummary("");
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/summarize", {
+      const response = await fetch(`${API_BASE_URL}/summarize`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(mode === "url" ? { url: input } : { text: input }),
